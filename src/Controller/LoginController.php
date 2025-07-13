@@ -11,42 +11,73 @@ class LoginController extends AppController
     public function initialize(): void
     {
         parent::initialize();
+        $this->loadComponent('Flash');
     }
 
-    public function beforeFilter(EventInterface $event)
+    public function beforeFilter(EventInterface $event): void
     {
         parent::beforeFilter($event);
-        $this->Authentication->allowUnauthenticated(['index']);
-        return $this;
+        $this->Authentication->addUnauthenticatedActions(['index']);
     }
 
-    public function index(): ?Response
+    public function beforeRender(EventInterface $event)
+    {
+        parent::beforeRender($event);
+        $this->viewBuilder()->setLayout('auth'); 
+    }
+
+    public function index()
     {
         $this->request->allowMethod(['get', 'post']);
-
         $result = $this->Authentication->getResult();
 
-        if ($result && $result->isValid()) {
-            $user = $this->request->getAttribute('identity');
-
-            if ($user->is_admin) {
-                return $this->redirect(['controller' => 'Admin', 'action' => 'index']);
-            } else {
-                return $this->redirect(['controller' => 'Tasks', 'action' => 'index']);
-            }
+        // Xử lý khi đã đăng nhập
+        if ($result->isValid()) {
+            return $this->redirectAfterLogin();
         }
 
-        if ($this->request->is('post') && (!$result || !$result->isValid())) {
-            $this->Flash->error(__('Tên đăng nhập hoặc mật khẩu không đúng.'));
+        // Xử lý khi submit form đăng nhập thất bại
+        if ($this->request->is('post') && !$result->isValid()) {
+            $this->handleFailedLogin();
         }
-
-        return null;
     }
 
-    public function logout(): Response
+    public function logout()
     {
+        // Chỉ cho phép POST request
+        $this->request->allowMethod(['post']);
+        
         $this->Authentication->logout();
-        $this->Flash->success(__('Bạn đã đăng xuất thành công.'));
-        return $this->redirect(['action' => 'index']);
+        $this->Flash->success(__('Đã đăng xuất thành công.'));
+        return $this->redirect(['controller' => 'Login', 'action' => 'index']);
+    }
+
+    /**
+     * Xử lý chuyển hướng sau khi đăng nhập thành công
+     */
+    protected function redirectAfterLogin(): Response
+    {
+        $user = $this->Authentication->getIdentity();
+        $redirect = $this->request->getQuery('redirect', [
+            'controller' => $user->is_admin ? 'Admin' : 'Tasks',
+            'action' => 'index'
+        ]);
+
+        $this->Flash->success(__('Đăng nhập thành công! Chào mừng {0}', $user->username));
+        return $this->redirect($redirect);
+    }
+
+    /**
+     * Xử lý khi đăng nhập thất bại
+     */
+    protected function handleFailedLogin(): void
+    {
+        $this->Flash->error(__('Tên đăng nhập hoặc mật khẩu không đúng.'), [
+            'key' => 'auth_error',
+            'escape' => false
+        ]);
+
+        // Bảo mật: không tiết lộ thông tin cụ thể về lỗi
+        $this->log('Failed login attempt from IP: ' . $this->request->clientIp(), 'warning');
     }
 }

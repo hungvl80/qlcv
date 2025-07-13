@@ -42,7 +42,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
                 'cacheTime' => Configure::read('Asset.cacheTime'),
             ]))
             ->add(new BodyParserMiddleware())
-            ->add(new AuthenticationMiddleware($this))
+            ->add(new AuthenticationMiddleware($this)) // Đã có
             ->add(new RoutingMiddleware($this))
             ->add(new CsrfProtectionMiddleware([
                 'httponly' => true,

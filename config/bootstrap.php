@@ -21,6 +21,8 @@ declare(strict_types=1);
  * to suit your needs/preferences.
  */
 
+date_default_timezone_set('Asia/Ho_Chi_Minh'); // GMT+7
+
 /*
  * Configure paths required to find CakePHP + general filepath constants
  */

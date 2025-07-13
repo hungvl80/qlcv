@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Http\Response; // Sử dụng để trả về Response từ các action
+use Cake\Datasource\Paging\NumericPaginator;
 
 /**
  * Units Controller
@@ -13,6 +14,14 @@ use Cake\Http\Response; // Sử dụng để trả về Response từ các actio
  */
 class UnitsController extends AppController
 {
+    
+    /**
+     * @var array
+     */
+    protected array $paginate = [ // THAY ĐỔI DÒNG NÀY!
+        'limit' => 20, 
+        'maxLimit' => 100
+    ];
     /**
      * Index method
      *
@@ -20,8 +29,12 @@ class UnitsController extends AppController
      */
     public function index(): void
     {
-        // find('threaded') hoạt động vì TreeBehavior đã được gắn trong UnitsTable
-        $units = $this->Units->find('threaded')->toArray();
+        // Gọi custom finder 'withUnits'
+        // Finder này đã được cấu hình đúng với 'ParentUnit' (số ít)
+        $query = $this->Units->find('withUnits'); 
+
+        $units = $this->paginate($query); 
+        
         $this->set(compact('units'));
     }
 
@@ -50,6 +63,7 @@ class UnitsController extends AppController
             $prefix = str_repeat('--', $u->level ?? 0);
             return $prefix . ' ' . $u->name;
         })
+        ->where(['parent_id IS NULL'])
         ->order(['lft' => 'ASC']) // Quan trọng: Đảm bảo thứ tự đúng của cây
         ->toArray();
 
@@ -64,6 +78,14 @@ class UnitsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+
+    public function view($id = null) // Đảm bảo action này tồn tại và là public
+    {
+        $unit = $this->Units->get($id, contain: []); // Bạn có thể thêm 'contain' nếu muốn hiển thị các mối quan hệ khác của Unit
+
+        $this->set(compact('unit'));
+    }
+
     public function edit($id = null): ?Response
     {
         $unit = $this->Units->get($id, [

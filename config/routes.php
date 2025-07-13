@@ -25,24 +25,16 @@ return function (RouteBuilder $routes): void {
                 ->setPatterns(['id' => '\d+'])
                 ->setPass(['id']);
 
-        // Users delete (route của bạn đã đúng)
         $builder->connect('/users/delete/{id}', ['controller' => 'Users', 'action' => 'delete'])
                 ->setPatterns(['id' => '\d+'])
                 ->setPass(['id']);
 
-        // Users index (định nghĩa rõ ràng)
         $builder->connect('/users', ['controller' => 'Users', 'action' => 'index']);
 
-        // Nếu bạn muốn có action view, định nghĩa nó cụ thể (ví dụ: users/view/1)
-        // $builder->connect('/users/view/{id}', ['controller' => 'Users', 'action' => 'view'])
-        //         ->setPatterns(['id' => '\d+'])
-        //         ->setPass(['id']);
+        $builder->connect('/users/upload-avatar/{id}', ['controller' => 'Users', 'action' => 'uploadAvatar'])
+                ->setPatterns(['id' => '\d+'])
+                ->setPass(['id']);
 
-
-        // CUỐI CÙNG: fallbacks() sẽ xử lý tất cả các route còn lại theo quy tắc mặc định của CakePHP.
-        // Bao gồm cả các route dạng /controller/action hoặc /controller/action/id
-        // Ví dụ: /users/index, /users/add, /users/edit/1, users/view/1
-        // Nếu bạn đã định nghĩa rõ các route trên, fallbacks sẽ hoạt động như một "mạng lưới an toàn".
         $builder->fallbacks();
     });
 };

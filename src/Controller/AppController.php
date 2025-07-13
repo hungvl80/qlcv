@@ -35,4 +35,17 @@ class AppController extends Controller
             return $this->redirect('/login');
         }
     }
+
+    public function beforeRender(EventInterface $event)
+    {
+        parent::beforeRender($event);
+
+        // Định nghĩa các tùy chọn cho quyền giao việc
+        $canAssignTasksOptions = [
+            0 => __('Không có quyền giao việc'),
+            1 => __('Giao việc nội bộ'),
+            2 => __('Giao việc liên đơn vị'),
+        ];
+        $this->set(compact('canAssignTasksOptions')); // Gửi biến này đến tất cả các view
+    }    
 }

@@ -1,356 +1,159 @@
-/* src/webroot/css/style.css */
+/* style.css */
 
-/* General Body Styling */
+/* --- 1. General Typography Adjustments (Điều chỉnh chữ chung) --- */
+
+/* Điều chỉnh font-size cơ bản cho toàn bộ body */
 body {
-    background-color: #f8f9fa; /* Light background for the whole page */
-    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Modern, clean font */
-    color: #343a40; /* Default text color */
+    font-size: 0.9rem; /* Nhỏ hơn mặc định của Bootstrap (thường là 1rem) */
+    line-height: 1.4; /* GIẢM KHOẢNG CÁCH DÒNG CHUNG */
 }
 
-/* Main Navigation Bar (Matching image_c86037.jpg) */
-.main-nav {
-    background-color: #3470cc !important; /* Deeper blue for navbar, from image */
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
+/* Kích thước chữ cho các thẻ tiêu đề */
+h1, .h1 { 
+    font-size: 2.2rem; 
+    line-height: 1.2; /* Giảm khoảng cách dòng cho tiêu đề */
 }
-.main-nav .navbar-brand {
-    font-weight: 700;
-    color: #fff !important;
-    font-size: 1.5rem;
+h2, .h2 { 
+    font-size: 1.8rem; 
+    line-height: 1.25; /* Giảm khoảng cách dòng cho tiêu đề */
 }
-.main-nav .nav-link {
-    color: rgba(255, 255, 255, 0.9) !important;
-    font-weight: 500;
-    margin-left: 1rem;
-    padding: 0.5rem 0.8rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.2s, color 0.2s;
+h3, .h3 { 
+    font-size: 1.5rem; 
+    line-height: 1.3; /* Giảm khoảng cách dòng cho tiêu đề */
 }
-.main-nav .nav-link:hover,
-.main-nav .nav-link.active {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #fff !important;
+h4, .h4 { 
+    font-size: 1.2rem; 
+    line-height: 1.3; /* Giảm khoảng cách dòng cho tiêu đề */
 }
-
-/* Container for main content */
-.container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+h5, .h5 { 
+    font-size: 1rem; 
+    line-height: 1.35; /* Giảm khoảng cách dòng cho tiêu đề */
+}
+h6, .h6 { 
+    font-size: 0.9rem; 
+    line-height: 1.4; /* Giảm khoảng cách dòng cho tiêu đề */
 }
 
-
-/* Dashboard Cards (Matching image_e2361d.png) */
-.dashboard-card {
-    background-color: #fff; /* Card background is the specific color, not white */
-    border: none;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    padding: 1.5rem;
-    text-align: center;
-    min-height: 180px; /* Ensure consistent height */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    color: #fff; /* White text for all dashboard cards */
+/* Các đoạn văn bản thông thường */
+p {
+    font-size: 0.875rem; 
+    margin-bottom: 0.75rem; 
+    line-height: 1.45; /* GIẢM KHOẢNG CÁCH DÒNG CỦA ĐOẠN VĂN */
 }
 
-.dashboard-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+/* Các link */
+a {
+    font-size: inherit; 
+    line-height: inherit; /* Giữ nguyên line-height của phần tử cha */
 }
 
-.dashboard-card .icon-wrapper {
-    font-size: 2.8rem; /* Slightly larger icon */
-    margin-bottom: 0.75rem;
+/* --- 2. Compact Spacing for Bootstrap Components (Điều chỉnh khoảng cách các thành phần Bootstrap) --- */
+
+/* Padding cho các Card (Thẻ) */
+.card {
+    padding: 0.75rem; 
+}
+.card-body {
+    padding: 0.75rem; 
+}
+.card-header, .card-footer {
+    padding: 0.5rem 0.75rem; 
 }
 
-.dashboard-card h4 {
-    font-size: 1.35rem; /* Larger heading */
-    margin-bottom: 0.4rem;
-    font-weight: 600;
-}
-
-.dashboard-card .count-text {
-    font-size: 1rem; /* Clearer count text */
-    margin-bottom: 1.25rem;
-    opacity: 0.95;
-}
-
-.dashboard-card .btn-manage {
-    background-color: rgba(255, 255, 255, 0.25); /* More visible transparent button */
-    border: 1px solid rgba(255, 255, 255, 0.5); /* Stronger border */
-    color: #fff;
-    font-weight: bold;
-    border-radius: 0.35rem; /* Slightly more rounded */
-    padding: 0.6rem 1.8rem; /* Larger padding for button */
-    transition: background-color 0.2s, border-color 0.2s;
-    font-size: 0.95rem;
-}
-
-.dashboard-card .btn-manage:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-    border-color: rgba(255, 255, 255, 0.7);
-    color: #fff;
-}
-
-/* Specific colors for dashboard cards (Matching image_e2361d.png) */
-.card-blue { background-color: #3470cc; } /* Based on image color */
-.card-green { background-color: #28a745; }
-.card-teal { background-color: #17a2b8; }
-.card-yellow { background-color: #ffc107; }
-.card-red { background-color: #dc3545; }
-
-
-/* General Page Headers */
-h2, h3 {
-    color: #343a40;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-}
-
-
-/* Action Buttons in Tables (index.php) - Matching image_d5f35b.png and image_e1c185.png */
-.btn-action-icon {
-    width: 36px; /* Width of the square button */
-    height: 36px; /* Height of the square button */
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    border-radius: 0.25rem; /* Small radius for square shape */
-    margin-right: 6px; /* Spacing between buttons */
-    color: white; /* Icon color */
-    border: none;
-    font-size: 0.95rem; /* Icon size */
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    transition: all 0.2s ease-in-out;
-}
-
-.btn-action-icon:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
-    color: white; /* Ensure icon remains white on hover */
-}
-
-/* Custom colors for action icons (Matching image_d5f35b.png) */
-.btn-action-icon.btn-view {
-    background-color: #5bc0de; /* Light blue */
-}
-.btn-action-icon.btn-edit {
-    background-color: #f0ad4e; /* Orange/Yellow */
-}
-.btn-action-icon.btn-delete {
-    background-color: #d9534f; /* Red */
-}
-
-
-/* Side navigation buttons in View page (Matching image_c8549c.png and image_c7f69d.png) */
-.side-nav .btn {
-    width: 100%; /* Occupy full width of parent */
-    /* max-width removed to ensure full width filling available space in card-body */
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    white-space: nowrap;
-    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
-    transition: all 0.2s ease-in-out;
-    padding: 0.7rem 1.2rem; /* Larger padding for a more prominent button */
-    font-size: 1rem;
-    font-weight: 500;
-    border-radius: 0.35rem; /* Slightly more rounded */
-}
-
-.side-nav .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,.15);
-}
-
-/* Specific colors for side-nav buttons to match image_c7f69d.png */
-.side-nav .btn-warning { background-color: #f0ad4e !important; border-color: #f0ad4e !important; color: #fff !important; } /* Sửa Người dùng - Orange/Yellow */
-.side-nav .btn-danger { background-color: #d9534f !important; border-color: #d9534f !important; color: #fff !important; } /* Xóa Người dùng - Red */
-.side-nav .btn-outline-secondary { border-color: #ced4da !important; color: #6c757d !important; background-color: #fff !important;} /* Danh sách Người dùng - Light Gray border, darker text */
-.side-nav .btn-outline-secondary:hover { background-color: #6c757d !important; border-color: #6c757d !important; color: #fff !important; }
-.side-nav .btn-outline-success { border-color: #28a745 !important; color: #28a745 !important; background-color: #fff !important;} /* Thêm mới Người dùng - Green border, green text */
-.side-nav .btn-outline-success:hover { background-color: #28a745 !important; border-color: #28a745 !important; color: #fff !important; }
-
-.side-nav hr {
-    margin: 1.5rem 0; /* More space around the separator */
-    border-top: 1px solid rgba(0,0,0,.1);
-}
-
-
-/* Badge Styling (view.php and index.php) - Matching image_c8c117.png */
-.badge {
-    padding: 0.4em 0.8em;
-    font-size: 85%;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: 0.25rem;
-    color: #fff; /* White text for all badges */
-}
-
-
-/* Image Styling for Avatar (view.php) */
-.avatar-display {
-    border: 3px solid #dee2e6; /* Light gray border */
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-}
-
-/* Table Styling for View (Matching image_c8c117.png) */
-.users.view.content table {
-    margin-top: 1.5rem;
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    background-color: #fff; /* White background for table */
-}
-
-.users.view.content table th {
-    background-color: #e9ecef; /* Light gray background for table headers */
-    width: 30%;
-    vertical-align: middle;
-    padding: 0.8rem 1.2rem; /* Consistent padding */
-    font-weight: 600;
-    color: #495057; /* Darker text for headers */
-}
-
-.users.view.content table td {
-    vertical-align: middle;
-    padding: 0.8rem 1.2rem; /* Consistent padding */
-}
-
-/* Remove default table borders provided by .table-bordered for custom control */
-.table-bordered th,
-.table-bordered td {
-    border: none !important;
-}
-
-/* Add custom borders to mimic the image_c8c117.png */
-.users.view.content table tr:not(:last-child) td,
-.users.view.content table tr:not(:last-child) th {
-    border-bottom: 1px solid #dee2e6;
-}
-
-
-/* Table header for index page (Matching image_e1c185.png) */
-.table thead.table-dark th {
-    background-color: #343a40 !important; /* Dark background for table header */
-    color: #fff !important; /* White text */
-    border-color: #454d55 !important;
-    font-weight: 600;
-    padding: 0.8rem 1rem;
-}
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(0, 0, 0, 0.02); /* Very light stripe */
-}
-.table-hover tbody tr:hover {
-    background-color: rgba(0, 0, 0, 0.05); /* Slightly darker hover */
-}
+/* Bảng biểu (Tables) */
 .table {
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* Shadow for index table */
-    border-radius: 0.5rem;
-    overflow: hidden;
+    font-size: 0.85rem; 
+    margin-bottom: 0.75rem;
+    line-height: 1.4; /* GIẢM KHOẢNG CÁCH DÒNG TRONG BẢNG */
+}
+.table th, .table td {
+    padding: 0.5rem; 
+}
+/* Nếu bạn muốn bảng cực kỳ nhỏ gọn */
+.table-sm th, .table-sm td {
+    padding: 0.3rem; 
+    line-height: 1.3; /* Giảm khoảng cách dòng cho table-sm */
 }
 
-
-/* Form Styling (add.php, edit.php) - Matching image_d66f40.png, image_d76437.png, image_e23a3b.png */
-.card .form-control,
-.card .form-select {
-    border-radius: 0.25rem;
-    padding: 0.8rem 1rem; /* Larger padding for input fields */
-    height: auto;
-    font-size: 1rem;
-    color: #495057;
-    border: 1px solid #ced4da; /* Light gray border */
-}
-
-.card .form-control::placeholder {
-    color: #6c757d; /* Lighter placeholder text */
-    opacity: 0.7;
-}
-
-.card .form-control:focus,
-.card .form-select:focus {
-    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
-    border-color: #80bdff;
-}
-
-.card .form-check-input {
-    border-radius: 0.25em;
-    border: 1px solid #ced4da;
-}
-.card .form-check-input:checked {
-    background-color: #007bff;
-    border-color: #007bff;
-}
-
-
-/* Card headers (for forms and view) */
-.card-header.bg-primary {
-    background-color: #3470cc !important; /* Blue from navbar */
-    border-bottom: none;
-    padding: 1.2rem 1.5rem;
-    font-size: 1.4rem; /* Larger header text */
-    font-weight: 600;
-}
-.card-header.bg-info {
-    background-color: #17a2b8 !important; /* Teal for view header */
-    border-bottom: none;
-    padding: 1.2rem 1.5rem;
-    font-size: 1.4rem; /* Larger header text */
-    font-weight: 600;
-}
-
-/* Form action buttons */
-.btn-success, .btn-outline-secondary {
-    padding: 0.75rem 1.5rem; /* Larger padding for form buttons */
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 0.35rem;
-}
-.btn-outline-secondary {
-    color: #6c757d;
-    border-color: #6c757d;
-}
-.btn-outline-secondary:hover {
-    background-color: #6c757d;
-    color: #fff;
-    border-color: #6c757d;
-}
-
-
-/* General button margins */
+/* Nút bấm (Buttons) */
 .btn {
-    margin-top: 0.5rem; /* Small top margin for all buttons for consistent spacing */
+    padding: 0.375rem 0.75rem; 
+    font-size: 0.85rem; 
+    line-height: 1.2; /* Giảm khoảng cách dòng cho button */
 }
-.btn + .btn {
-    margin-left: 0.5rem; /* Space between sibling buttons */
-}
-/* Ensure the "Thêm mới" button has no left margin if it's the first in its row/group */
-.d-flex .btn:first-child {
-    margin-left: 0;
-}
-
-/* Fix for side nav buttons inside d-grid not having proper top margin */
-.card-body .d-grid.gap-2 > .btn {
-    margin-top: 0.5rem; /* Apply standard button margin-top */
-}
-.card-body .d-grid.gap-2 > .btn:first-child {
-    margin-top: 0; /* First button in the group won't have top margin if it's right after card-body/hr */
+.btn-sm {
+    padding: 0.25rem 0.5rem; 
+    font-size: 0.75rem;
+    line-height: 1.2; /* Giảm khoảng cách dòng cho button-sm */
 }
 
-/* Flash Messages */
+/* Form controls (input, select, textarea) */
+.form-control,
+.form-select,
+.form-check-label {
+    font-size: 0.875rem; 
+    padding: 0.375rem 0.75rem; 
+    line-height: 1.4; /* Giảm khoảng cách dòng cho form controls */
+}
+.form-control-sm,
+.form-select-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1.3; /* Giảm khoảng cách dòng cho form controls nhỏ */
+}
+
+/* Navbar links */
+.navbar-nav .nav-link {
+    padding: 0.5rem 0.75rem; 
+    font-size: 0.875rem; 
+    line-height: 1.2; /* Giảm khoảng cách dòng cho navbar links */
+}
+
+/* Dropdown items */
+.dropdown-item {
+    font-size: 0.875rem; 
+    padding: 0.4rem 0.8rem; 
+    line-height: 1.3; /* Giảm khoảng cách dòng cho dropdown items */
+}
+
+/* Breadcrumbs */
+.breadcrumb-item {
+    font-size: 0.85rem; 
+    line-height: 1.3; /* Giảm khoảng cách dòng cho breadcrumbs */
+}
+.breadcrumb {
+    padding: 0.5rem 0.75rem; 
+}
+
+/* Badges (nhãn) */
+.badge {
+    padding: 0.3em 0.5em; 
+    font-size: 0.75em; 
+    line-height: 1; /* Có thể giữ nguyên 1 hoặc giảm nhẹ nếu cần */
+}
+
+/* Alert messages (thông báo) */
 .alert {
-    margin-top: 1rem;
-    border-radius: 0.25rem;
-    font-size: 1.1rem;
-    padding: 1rem 1.25rem;
+    padding: 0.75rem 1rem; 
+    font-size: 0.875rem; 
+    margin-bottom: 0.75rem;
+    line-height: 1.4; /* Giảm khoảng cách dòng cho alert */
+}
+
+/* --- 3. Specific Adjustments for your custom tabs (Điều chỉnh riêng cho menu tab bạn vừa tạo) --- */
+
+.compact-icon-tabs .nav-link {
+    padding: 0.4rem 0.6rem; 
+    min-width: 70px; 
+    line-height: 1; /* Rất quan trọng để icon và chữ gần nhau hơn */
+}
+
+.compact-icon-tabs .nav-icon {
+    font-size: 1.1rem; 
+    margin-bottom: 0.15rem; 
+}
+
+.compact-icon-tabs .nav-label {
+    font-size: 0.7rem; 
+    line-height: 1.2; /* Điều chỉnh để chữ không bị tràn dòng */
 }

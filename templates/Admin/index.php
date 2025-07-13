@@ -1,148 +1,143 @@
 <style>
-    /* CSS Tùy chỉnh để tạo thẻ vuông và cân đối nội dung */
-    .card-square {
-        width: 100%;
+    /* CSS tùy chỉnh cho 4 thẻ card trên 1 hàng */
+    .dashboard-card-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        margin: 0 auto;
+        max-width: 1200px;
+    }
+    
+    .dashboard-card {
+        flex: 1;
+        min-width: 0;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
         text-align: center;
-        min-height: 110px; /* Giảm nhẹ min-height */
-        padding: 0.6rem; /* Giảm padding tổng thể của thẻ */
-        border-radius: 0.5rem;
-        transition: transform 0.3s ease;
+        padding: 1.5rem 1rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        min-height: 180px;
     }
-
-    .card-square:hover {
-        transform: scale(1.05);
+    
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     }
-
-    .card-square .card-body {
-        padding: 0.2rem; /* Giảm padding của body bên trong thẻ */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        width: 100%;
+    
+    .dashboard-card .card-icon {
+        font-size: 1.8rem;
+        margin-bottom: 12px;
     }
-
-    .card-square .card-title {
-        font-size: 0.95rem; /* Giảm kích thước tiêu đề để giữ trên 1 hàng */
-        margin-bottom: 0.15rem; /* Giảm khoảng cách dưới tiêu đề */
-        white-space: nowrap; /* Đảm bảo tiêu đề không xuống dòng */
-        overflow: hidden; /* Ẩn phần tràn */
-        text-overflow: ellipsis; /* Thêm dấu ... nếu tràn */
-        font-weight: 600; /* Có thể làm đậm hơn chút cho dễ đọc */
-    }
-
-    .card-square .card-title i {
-        font-size: 1.1rem; /* Giảm kích thước icon */
-        margin-right: 0.15rem; /* Giảm khoảng cách giữa icon và chữ */
-    }
-
-    .card-square .card-text {
-        font-size: 0.85rem; /* Giảm kích thước chữ mô tả */
-        margin-bottom: 0.5rem; /* Giảm khoảng cách dưới mô tả */
-        font-weight: 500;
-        white-space: nowrap; /* Đảm bảo mô tả không xuống dòng */
+    
+    .dashboard-card .card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        width: 100%;
     }
-
-    .card.bg-warning .card-text {
-        color: #212529; /* Đảm bảo màu chữ tối cho nền warning */
+    
+    .dashboard-card .card-value {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 15px;
     }
-
-    .card-square .btn {
-        font-size: 0.75rem; /* Giảm kích thước nút */
-        padding: 0.25rem 0.8rem; /* Giảm padding nút */
+    
+    .dashboard-card .card-btn {
+        font-size: 0.85rem;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        min-width: 100px;
+        margin-top: auto;
     }
-
-    /* Điều chỉnh cho màn hình nhỏ hơn (mobile) */
-    @media (max-width: 767.98px) {
-        .card-square {
-            min-height: 90px; /* Thẻ nhỏ hơn trên mobile */
-            padding: 0.3rem;
+    
+    /* Màu sắc cho từng thẻ */
+    .card-user {
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+        color: white;
+    }
+    
+    .card-unit {
+        background: linear-gradient(135deg, #1cc88a 0%, #13855c 100%);
+        color: white;
+    }
+    
+    .card-position {
+        background: linear-gradient(135deg, #36b9cc 0%, #258391 100%);
+        color: white;
+    }
+    
+    .card-log {
+        background: linear-gradient(135deg, #e74a3b 0%, #be2617 100%);
+        color: white;
+    }
+    
+    /* Responsive cho mobile */
+    @media (max-width: 992px) {
+        .dashboard-card-container {
+            flex-wrap: wrap;
         }
-        .card-square .card-title {
-            font-size: 0.85rem;
+        
+        .dashboard-card {
+            flex: 0 0 calc(50% - 10px);
+            min-height: 160px;
         }
-        .card-square .card-title i {
-            font-size: 1rem;
-        }
-        .card-square .card-text {
-            font-size: 0.75rem;
-        }
-        .card-square .btn {
-            font-size: 0.65rem;
-            padding: 0.15rem 0.5rem;
+    }
+    
+    @media (max-width: 576px) {
+        .dashboard-card {
+            flex: 0 0 100%;
         }
     }
 </style>
 
-<div class="container mt-5">
-    <h2 class="mb-4">Trang quản trị hệ thống</h2>
-
-    <div class="row g-4 justify-content-center">
-        <div class="col-md-2 col-sm-4 col-6">
-            <div class="card text-white bg-primary h-100 card-square">
-                <div class="card-body text-center">
-                    <h5 class="card-title">
-                        <i class="bi bi-people"></i> Người dùng
-                    </h5>
-                    <p class="card-text"><?= h($usersCount) ?> tài khoản</p>
-                    <?= $this->Html->link('Quản lý', ['controller' => 'Users', 'action' => 'index'], ['class' => 'btn btn-outline-light']) ?>
-                </div>
-            </div>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Trang quản trị hệ thống</h2>
+    
+    <div class="dashboard-card-container">
+        <!-- Thẻ Người dùng -->
+        <div class="dashboard-card card-user">
+            <i class="bi bi-people card-icon"></i>
+            <h3 class="card-title">Người dùng</h3>
+            <div class="card-value"><?= h($usersCount) ?></div>
+            <?= $this->Html->link('Quản lý', 
+                ['controller' => 'Users', 'action' => 'index'], 
+                ['class' => 'btn btn-outline-light card-btn']) ?>
         </div>
-
-        <div class="col-md-2 col-sm-4 col-6">
-            <div class="card text-white bg-success h-100 card-square">
-                <div class="card-body text-center">
-                    <h5 class="card-title">
-                        <i class="bi bi-building"></i> Đơn vị
-                    </h5>
-                    <p class="card-text"><?= h($unitsCount) ?> đơn vị</p>
-                    <?= $this->Html->link('Quản lý', ['controller' => 'Units', 'action' => 'index'], ['class' => 'btn btn-outline-light']) ?>
-                </div>
-            </div>
+        
+        <!-- Thẻ Đơn vị -->
+        <div class="dashboard-card card-unit">
+            <i class="bi bi-building card-icon"></i>
+            <h3 class="card-title">Đơn vị</h3>
+            <div class="card-value"><?= h($unitsCount) ?></div>
+            <?= $this->Html->link('Quản lý', 
+                ['controller' => 'Units', 'action' => 'index'], 
+                ['class' => 'btn btn-outline-light card-btn']) ?>
         </div>
-
-        <div class="col-md-2 col-sm-4 col-6">
-            <div class="card text-white bg-info h-100 card-square">
-                <div class="card-body text-center">
-                    <h5 class="card-title">
-                        <i class="bi bi-person-badge"></i> Chức vụ
-                    </h5>
-                    <p class="card-text">Có <?= h($positionsCount) ?> chức vụ</p>
-                    <?= $this->Html->link('Quản lý', ['controller' => 'Positions', 'action' => 'index'], ['class' => 'btn btn-outline-light']) ?>
-                </div>
-            </div>
+        
+        <!-- Thẻ Chức vụ -->
+        <div class="dashboard-card card-position">
+            <i class="bi bi-person-badge card-icon"></i>
+            <h3 class="card-title">Chức vụ</h3>
+            <div class="card-value"><?= h($positionsCount) ?></div>
+            <?= $this->Html->link('Quản lý', 
+                ['controller' => 'Positions', 'action' => 'index'], 
+                ['class' => 'btn btn-outline-light card-btn']) ?>
         </div>
-
-        <div class="col-md-2 col-sm-4 col-6">
-            <div class="card text-dark bg-warning h-100 card-square">
-                <div class="card-body text-center">
-                    <h5 class="card-title">
-                        <i class="bi bi-gear"></i> Giao việc
-                    </h5>
-                    <p class="card-text"><?= h($assignmentPermissionsCount) ?> cấu hình giao việc</p>
-                    <?= $this->Html->link('Quản lý', ['controller' => 'AssignmentPermissions', 'action' => 'index'], ['class' => 'btn btn-outline-dark']) ?>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-2 col-sm-4 col-6">
-            <div class="card text-white bg-danger h-100 card-square">
-                <div class="card-body text-center">
-                    <h5 class="card-title">
-                        <i class="bi bi-journal-text"></i> Audit Logs
-                    </h5>
-                    <p class="card-text"><?= h($logsCount) ?> logs</p>
-                    <?= $this->Html->link('Xem Logs', ['controller' => 'AuditLogs', 'action' => 'index'], ['class' => 'btn btn-outline-light']) ?>
-                </div>
-            </div>
+        
+        <!-- Thẻ Nhật ký -->
+        <div class="dashboard-card card-log">
+            <i class="bi bi-journal-text card-icon"></i>
+            <h3 class="card-title">Nhật ký</h3>
+            <div class="card-value"><?= h($logsCount) ?></div>
+            <?= $this->Html->link('Xem logs', 
+                ['controller' => 'AuditLogs', 'action' => 'index'], 
+                ['class' => 'btn btn-outline-light card-btn']) ?>
         </div>
     </div>
 </div>
