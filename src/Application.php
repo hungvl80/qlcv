@@ -14,6 +14,7 @@ use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
 use Cake\Http\Middleware\BodyParserMiddleware;
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
+use Cake\Http\Middleware\RequestHandlerMiddleware;
 use Cake\Http\MiddlewareQueue;
 use Cake\ORM\Locator\TableLocator;
 use Cake\Routing\Middleware\AssetMiddleware;
@@ -37,15 +38,34 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
     public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
     {
         $middlewareQueue
+            // Xử lý lỗi trước tiên
             ->add(new ErrorHandlerMiddleware(Configure::read('Error'), $this))
+
+            // Xử lý các yêu cầu tài sản (assets)
             ->add(new AssetMiddleware([
                 'cacheTime' => Configure::read('Asset.cacheTime'),
             ]))
-            ->add(new BodyParserMiddleware())
-            ->add(new AuthenticationMiddleware($this)) // Đã có
+
+            // Phân tích cú pháp các body yêu cầu
+            ->add(new BodyParserMiddleware([
+                'json' => true,  // Bật phân tích JSON
+                'xml' => true    // Bật phân tích XML (nếu cần)
+            ]))
+
+            // Xử lý xác thực người dùng
+            ->add(new AuthenticationMiddleware($this))
+
+            // Xử lý định tuyến các yêu cầu
             ->add(new RoutingMiddleware($this))
+
+            // Bảo vệ CSRF (Cross-Site Request Forgery)
             ->add(new CsrfProtectionMiddleware([
                 'httponly' => true,
+                'secure' => true,
+                'whitelist' => [
+                    '/dynamic-tables/*', // Bỏ qua CSRF cho các route API
+                    '/api/*'            // Thêm các route API khác nếu cần
+                ]
             ]));
 
         return $middlewareQueue;

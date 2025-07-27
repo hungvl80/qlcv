@@ -21,8 +21,12 @@ class TasksController extends AppController
             ->contain(['ParentTasks']);
         $tasks = $this->paginate($query);
 
-        $this->set(compact('tasks'));
+        $RecordCategoriesTable = $this->fetchTable('RecordCategories');
+        $categories = $RecordCategoriesTable->find()->all();
+
+        $this->set(compact('tasks', 'categories'));
     }
+
 
     /**
      * View method

@@ -52,35 +52,6 @@ use Cake\Utility\Security;
  */
 require CAKE . 'functions.php';
 
-/*
- * See https://github.com/josegonzalez/php-dotenv for API details.
- *
- * Uncomment block of code below if you want to use `.env` file during development.
- * You should copy `config/.env.example` to `config/.env` and set/modify the
- * variables as required.
- *
- * The purpose of the .env file is to emulate the presence of the environment
- * variables like they would be present in production.
- *
- * If you use .env files, be careful to not commit them to source control to avoid
- * security risks. See https://github.com/josegonzalez/php-dotenv#general-security-information
- * for more information for recommended practices.
-*/
-// if (!env('APP_NAME') && file_exists(CONFIG . '.env')) {
-//     $dotenv = new \josegonzalez\Dotenv\Loader([CONFIG . '.env']);
-//     $dotenv->parse()
-//         ->putenv()
-//         ->toEnv()
-//         ->toServer();
-// }
-
-/*
- * Initializes default Config store and loads the main configuration file (app.php)
- *
- * CakePHP contains 2 configuration files after project creation:
- * - `config/app.php` for the default application configuration.
- * - `config/app_local.php` for environment specific configuration.
- */
 try {
     Configure::config('default', new PhpConfig());
     Configure::load('app', 'default', false);
@@ -151,14 +122,7 @@ if (PHP_SAPI === 'cli') {
  */
 $fullBaseUrl = Configure::read('App.fullBaseUrl');
 if (!$fullBaseUrl) {
-    /*
-     * When using proxies or load balancers, SSL/TLS connections might
-     * get terminated before reaching the server. If you trust the proxy,
-     * you can enable `$trustProxy` to rely on the `X-Forwarded-Proto`
-     * header to determine whether to generate URLs using `https`.
-     *
-     * See also https://book.cakephp.org/5/en/controllers/request-response.html#trusting-proxy-headers
-     */
+    
     $trustProxy = false;
 
     $s = null;
@@ -204,32 +168,27 @@ ServerRequest::addDetector('tablet', function ($request) {
     return $detector->isTablet();
 });
 
-/*
- * You can enable default locale format parsing by adding calls
- * to `useLocaleParser()`. This enables the automatic conversion of
- * locale specific date formats when processing request data. For details see
- * @link https://book.cakephp.org/5/en/core-libraries/internationalization-and-localization.html#parsing-localized-datetime-data
- */
-// \Cake\Database\TypeFactory::build('time')->useLocaleParser();
-// \Cake\Database\TypeFactory::build('date')->useLocaleParser();
-// \Cake\Database\TypeFactory::build('datetime')->useLocaleParser();
-// \Cake\Database\TypeFactory::build('timestamp')->useLocaleParser();
-// \Cake\Database\TypeFactory::build('datetimefractional')->useLocaleParser();
-// \Cake\Database\TypeFactory::build('timestampfractional')->useLocaleParser();
-// \Cake\Database\TypeFactory::build('datetimetimezone')->useLocaleParser();
-// \Cake\Database\TypeFactory::build('timestamptimezone')->useLocaleParser();
+// Định nghĩa trạng thái phê duyệt
+define('STATUS_OPTIONS', [
+    0 => 'Chưa phê duyệt',
+    1 => 'Đã phê duyệt'
+]);
 
-/*
- * Custom Inflector rules, can be set to correctly pluralize or singularize
- * table, model, controller names or whatever other string is passed to the
- * inflection functions.
- */
-// \Cake\Utility\Inflector::rules('plural', ['/^(inflect)or$/i' => '\1ables']);
-// \Cake\Utility\Inflector::rules('irregular', ['red' => 'redlings']);
-// \Cake\Utility\Inflector::rules('uninflected', ['dontinflectme']);
+Configure::write('ColumnTypeMapping', [
+    'varchar' => 'Chuỗi ngắn',
+    'text' => 'Chuỗi dài',
+    'int' => 'Số nguyên',
+    'float' => 'Số thực',
+    'date' => 'Ngày',
+    'datetime' => 'Ngày giờ',
+    'file' => 'Tệp đính kèm',
+    'tinyint' => 'Có/Không'
+]);
 
-// set a custom date and time format
-// see https://book.cakephp.org/5/en/core-libraries/time.html#setting-the-default-locale-and-format-string
-// and https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax
-// \Cake\I18n\Date::setToStringFormat('dd.MM.yyyy');
-// \Cake\I18n\Time::setToStringFormat('dd.MM.yyyy HH:mm');
+Configure::write('TinyintBooleanMapping', [
+    0 => 'Không',
+    1 => 'Có',
+]);
+
+// Ánh xạ ngược (nếu cần)
+//Configure::write('ReverseColumnTypeMapping', array_flip(Configure::read('ColumnTypeMapping')));

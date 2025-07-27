@@ -41,5 +41,7 @@ class AppView extends View
         $this->loadHelper('Authentication.Identity');
         // Hoặc nếu bạn muốn sử dụng helper tự tạo
         $this->loadHelper('Identity');
+        // Thêm DynamicTables Helper vào đây
+        $this->loadHelper('DynamicTables');
     }
 }

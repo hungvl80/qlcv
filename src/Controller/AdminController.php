@@ -17,6 +17,19 @@ use Cake\ORM\TableRegistry; // Cần import TableRegistry để lấy các bản
  */
 class AdminController extends AppController
 {
+    public function noPermission()
+    {
+        $role = $this->request->getQuery('role');
+
+        $backUrl = [];
+        if ($role === 'admin') {
+            $backUrl = ['controller' => 'Admin', 'action' => 'index'];
+        } else {
+            $backUrl = ['controller' => 'Pages', 'action' => 'home'];
+        }
+
+        $this->set(compact('role', 'backUrl'));
+    }
     /**
      * Index method
      *
@@ -30,28 +43,21 @@ class AdminController extends AppController
         // Lấy TableLocator để truy cập các bảng
         $tableLocator = TableRegistry::getTableLocator();
 
-        // Lấy số lượng người dùng
         $usersCount = $tableLocator->get('Users')->find()->count();
-
-        // Lấy số lượng đơn vị
         $unitsCount = $tableLocator->get('Units')->find()->count();
-
-        // Lấy số lượng chức vụ (Positions)
         $positionsCount = $tableLocator->get('Positions')->find()->count();
-
-        // Lấy số lượng cấu hình giao việc (AssignmentPermissions)
         $assignmentPermissionsCount = $tableLocator->get('AssignmentPermissions')->find()->count();
-
-        // Lấy số lượng nhật ký kiểm toán (AuditLogs)
         $logsCount = $tableLocator->get('AuditLogs')->find()->count();
+        $catTablesCount = $tableLocator->get('CatTables')->find()->count(); // ✅ Mới
 
-        // Truyền các biến đếm vào view
         $this->set(compact(
             'usersCount',
             'unitsCount',
-            'positionsCount', // Thêm vào compact
-            'assignmentPermissionsCount', // Thêm vào compact
-            'logsCount'
+            'positionsCount',
+            'assignmentPermissionsCount',
+            'logsCount',
+            'catTablesCount' // ✅ Mới
         ));
     }
+
 }

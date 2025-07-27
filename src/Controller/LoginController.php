@@ -58,10 +58,10 @@ class LoginController extends AppController
     protected function redirectAfterLogin(): Response
     {
         $user = $this->Authentication->getIdentity();
-        $redirect = $this->request->getQuery('redirect', [
-            'controller' => $user->is_admin ? 'Admin' : 'Tasks',
-            'action' => 'index'
-        ]);
+            $redirect = [
+            'controller' => $user->is_admin ? 'Admin' : 'Pages',
+            'action' => $user->is_admin ? 'index' : 'home'
+        ];
 
         $this->Flash->success(__('Đăng nhập thành công! Chào mừng {0}', $user->username));
         return $this->redirect($redirect);

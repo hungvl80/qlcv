@@ -1,0 +1,141 @@
+.dynamic-menu-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.menu-header {
+    margin-bottom: 40px;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.menu-category {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.menu-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.category-header {
+    background: linear-gradient(135deg, #4361ee, #3a0ca3);
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.category-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.category-icon {
+    font-size: 1.5rem;
+}
+
+.category-content {
+    padding: 15px;
+}
+
+.menu-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-item {
+    margin-bottom: 8px;
+}
+
+.item-link, .group-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-radius: 8px;
+    color: #495057;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.item-link:hover {
+    background-color: #f8f9fa;
+    color: #4361ee;
+}
+
+.item-link i {
+    color: #adb5bd;
+    font-size: 0.8rem;
+}
+
+.item-group {
+    margin-bottom: 10px;
+}
+
+.group-title {
+    font-weight: 600;
+    color: #212529;
+    background-color: #f8f9fa;
+}
+
+.sub-items {
+    list-style: none;
+    padding-left: 15px;
+    margin-top: 5px;
+}
+
+.sub-item-link {
+    display: block;
+    padding: 8px 15px;
+    border-radius: 6px;
+    color: #6c757d;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.sub-item-link:hover {
+    background-color: #f1f3f5;
+    color: #3a0ca3;
+}
+
+/* Danh mục thêm mới */
+.menu-category.add-new {
+    background-color: #f8f9fa;
+    border: 2px dashed #dee2e6;
+}
+
+.menu-category.add-new .category-header {
+    background: transparent;
+    color: #6c757d;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    height: 100%;
+}
+
+.menu-category.add-new:hover {
+    border-color: #4361ee;
+    color: #4361ee;
+    cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+}

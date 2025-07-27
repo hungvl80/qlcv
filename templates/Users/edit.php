@@ -305,7 +305,7 @@ $isEditingOwnProfile = $loggedInUser && $loggedInUser->id === $user->id;
                         ) ?>
                         
                         <?= $this->Form->button(
-                            __('<i class="fas fa-save me-1"></i> Lưu thay đổi'),
+                            __('Lưu thay đổi'),
                             ['class' => 'btn btn-primary px-4', 'escape' => false]
                         ) ?>
                     </div>

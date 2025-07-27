@@ -1,0 +1,80 @@
+:root {
+    --primary-color: #3a7bd5;
+    --secondary-color: #00d2ff;
+    --dark-color: #2c3e50;
+}
+
+.table-builder {
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.dynamic-table {
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.column-type-badge {
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.action-buttons .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+.table-name-display {
+    font-weight: 600;
+    color: var(--primary-color);
+    background-color: rgba(58, 123, 213, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    display: inline-block;
+}
+
+/* CSS cho sắp xếp cột */
+.sort-column-btn {
+    padding: 0.1rem 0.3rem;
+    font-size: 0.7rem;
+    margin: 0 1px;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.sort-column-btn:hover {
+    color: var(--primary-color);
+}
+
+.sort-column-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.action-buttons {
+    white-space: nowrap;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .table-builder .card-body,
+    .dynamic-table .card-body {
+        padding: 1rem;
+    }
+    
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .action-buttons .btn {
+        width: 100%;
+    }
+}
